@@ -1,0 +1,18 @@
+<% provide(:title, @campaign.name) %>
+
+<h1><%= @campaign.name %></h1>, <%= @campaign.drop_date %>
+
+
+<div class = "row">
+	<div class = "span3 offset0">
+		<h3>Appeal Data</h3>
+		<p>
+			<%= link_to "View Table", campaign_appeals_path(@campaign.id, format: "html") %> | 
+			<%= link_to "Download CSV", campaign_appeals_path(@campaign.id, format: "csv") %>
+		</p>
+		<%= form_tag import_campaign_appeals_path(@campaign.id), multipart: true do %>
+  			<%= file_field_tag :file %>
+  			<%= submit_tag "Import", class: "btn btn-large btn-primary" %>
+ 		<% end %>
+ 	</div>
+</div>

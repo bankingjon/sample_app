@@ -1,0 +1,7 @@
+<li>
+  <%= link_to campaign.name, campaign %>
+  <% if current_user.admin? %>
+    | <%= link_to "delete", campaign, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+</li>

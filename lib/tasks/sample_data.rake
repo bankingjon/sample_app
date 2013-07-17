@@ -4,6 +4,7 @@ namespace :db do
     make_users
     make_microposts
     make_relationships
+    make_campaigns
   end
 end
 
@@ -39,4 +40,12 @@ def make_relationships
   followers      = users[3..40]
   followed_users.each { |followed| user.follow!(followed) }
   followers.each      { |follower| follower.follow!(user) }
+end
+
+def make_campaigns
+  50.times do |n|
+    name = Faker::Company.catch_phrase
+    date = "1/1/2013"
+    Campaign.create!(name: name, drop_date: date)
+  end
 end
