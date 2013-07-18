@@ -1,18 +1,35 @@
 <% provide(:title, @campaign.name) %>
 
-<h1><%= @campaign.name %></h1>, <%= @campaign.drop_date %>
-
+<h1><%= @campaign.name %></h1>
 
 <div class = "row">
-	<div class = "span3 offset0">
-		<h3>Appeal Data</h3>
-		<p>
-			<%= link_to "View Table", campaign_appeals_path(@campaign.id, format: "html") %> | 
-			<%= link_to "Download CSV", campaign_appeals_path(@campaign.id, format: "csv") %>
-		</p>
-		<%= form_tag import_campaign_appeals_path(@campaign.id), multipart: true do %>
+	<aside class = "span4">
+		<section>
+ 			<h3>Reports</h3>
+ 			<p><%= link_to "Gift & Donor Reports", '#' %>
+ 			<p><%= link_to "View Gift Table", '#' %></p> 
+			<p><%= link_to "Upload Gifts CSV", '#' %></p>
+		</section>
+ 		<section>
+ 			<h3>Segments / Tiers<h3>
+ 		</section>
+ 		<section>
+ 			<h3>Packages<h3>
+ 		</section>
+ 		<section>
+ 			<h3>Related Campaigns<h3>
+ 		</section>
+ 		<section>
+		  <h3>Appeal Data</h3>
+		  <p><%= link_to "View Table", campaign_appeals_path(@campaign.id, format: "html") %></p>
+			<p><%= link_to "Download CSV", campaign_appeals_path(@campaign.id, format: "csv") %></p>
+		  <%= form_tag import_campaign_appeals_path(@campaign.id), multipart: true do %>
   			<%= file_field_tag :file %>
   			<%= submit_tag "Import", class: "btn btn-large btn-primary" %>
- 		<% end %>
+ 		  <% end %>
+ 		</section>
+ 	</aside>
+ 	<div class="span8">
+ 		<h3>Mail Date <%= @campaign.drop_date %></h3>
  	</div>
 </div>

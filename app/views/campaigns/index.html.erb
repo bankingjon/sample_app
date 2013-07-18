@@ -1,10 +1,18 @@
 <% provide(:title, 'All campaigns') %>
-<h1>All campaigns</h1>
+<div class = "row">
+	<aside class = "span4">
+		<section>
+		<p><%= link_to "New Campaign", new_campaign_path %></p>
+ 		</section>
+ 	</aside>
+ 	<div class = "span 8">
+ 	<h3>All Campaigns</h3>
+	  <%= will_paginate %>
 
-<%= will_paginate %>
+	  <ol class="campaigns">
+		<%= render @campaigns %>
+	  </ol>
 
-<ul class="campaigns">
-  <%= render @campaigns %>
-</ul>
-
-<%= will_paginate %>
+	  <%= will_paginate %>
+	</div>
+</div>

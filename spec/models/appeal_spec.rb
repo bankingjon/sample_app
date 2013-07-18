@@ -21,6 +21,7 @@ describe Appeal do
   it { should respond_to(:mailtype) }
   it { should respond_to(:campaign_id) }
   it { should respond_to(:campaign) }
+  it { should respond_to(:donations) }
   its(:campaign) { should eq campaign}
 
   it { should be_valid }

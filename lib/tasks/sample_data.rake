@@ -47,5 +47,61 @@ def make_campaigns
     name = Faker::Company.catch_phrase
     date = "1/1/2013"
     Campaign.create!(name: name, drop_date: date)
+    campaign = Campaign.last
+    make_appeals(campaign)  
   end
 end
+
+def make_appeals(campaign)
+  sample = 1000
+  response_rate = rand(2..100)/100.to_f
+  total_gifts = sample * response_rate
+  sample.times do
+    donorid = rand(1000..99999) 
+    mailcode = ('A'..'E').to_a.shuffle[0]+rand(1..9).to_s
+    askone = rand(15..50)
+    asktwo = rand(25..100)
+    askthree = rand(35..250)
+    tier = rand(1..10)
+    tiercode = ('A'..'J').to_a.shuffle[0]+rand(1..9).to_s
+    scanline = donorid.to_s+mailcode+tier.to_s+tiercode
+    campaign.appeals.create!(
+              client_file_id: donorid,
+              ask1: askone,
+              ask2: asktwo,
+              ask3: askthree,
+              mailcode: mailcode,
+              scanline: scanline,
+              tier: tier,
+              tiercode: tiercode )
+    if total_gifts > 0
+      make_donations(donorid, scanline)
+      total_gifts = total_gifts - 1
+    end
+  end
+end
+
+
+def make_donations(donorid, scanline)
+  gift_id = rand(10000..99999)
+  channel = 'mail'
+  amount = rand(5..1000)
+  date = '1/1/2013'
+  Donation.create(amount:  amount,
+                  channel:  channel, 
+                  client_file_id: donorid,
+                  gift_date: date,
+                  gift_id: gift_id,
+                  scanline: scanline)
+end
+
+
+
+
+
+
+
+
+
+
+

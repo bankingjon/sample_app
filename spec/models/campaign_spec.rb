@@ -9,6 +9,7 @@ describe Campaign do
   it { should respond_to(:name) }
   it { should respond_to(:drop_date) }
   it { should respond_to(:appeals) }
+  it { should respond_to(:donations)}
 
   describe "when name is not present" do
     before { @campaign.name = " " }
