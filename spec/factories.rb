@@ -18,6 +18,8 @@ FactoryGirl.define do
   factory :campaign do
     name "Fall Campaign 2013"
     drop_date "6/1/2013"
+    client_id "1"
+    mp_managed "0"
   end
 
   factory :appeal do

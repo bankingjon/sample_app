@@ -1,11 +1,16 @@
 <% provide(:title, "Create New Campaign") %>
-<h1>Create A New Campaign</h1>
+<% @client = Client.find(params[:client_id]) %>
 
 
 <div class = "row">
 	<div class = "span6 offset3">
+		<h3>Create a New Campaign for <%= @client.name %></h3>
+
 		<%= form_for(@campaign) do |f| %>
+
 			<%= render 'shared/error_messages', object: f.object %>
+
+			<%= f.hidden_field :client_id, :value => params[:client_id] %>
 
 			<%= f.label :name %>
 			<%= f.text_field :name %>

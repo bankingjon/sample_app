@@ -1,4 +1,8 @@
 class AppealsController < ApplicationController
+before_filter :signed_in_user, only: [:index, :import, :destory]
+before_filter :admin_user, only: [:import, :destroy]
+
+
 
 def index
 	respond_to do |format|
@@ -23,6 +27,9 @@ def import
   	end
 	flash[:success] = "Appeals Data imported."
 	redirect_to @compaign 
+end
+
+def destory
 end
 
 

@@ -8,10 +8,20 @@ SampleApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
-
-  resources :campaigns do
-    resources :appeals do
+  
+  resources :clients do
+    resources :donations do
       collection { post :import }
+    end
+    resources :campaigns, only: :new
+  end
+
+  resources :campaigns, only: [:index, :show, :create, :destroy] do
+    resources :appeals do
+      collection { post :import } 
+    end
+    resources :donations do
+      collection { get :display}
     end
   end
 

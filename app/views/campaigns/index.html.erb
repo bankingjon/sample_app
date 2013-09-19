@@ -1,8 +1,8 @@
 <% provide(:title, 'All campaigns') %>
-<div class = "row">
+<div class = "row-fluid">
 	<aside class = "span4">
 		<section>
-		<p><%= link_to "New Campaign", new_campaign_path %></p>
+		<p><%= link_to "New Campaign", '#' %></p>
  		</section>
  	</aside>
  	<div class = "span 8">
@@ -10,7 +10,7 @@
 	  <%= will_paginate %>
 
 	  <ol class="campaigns">
-		<%= render @campaigns %>
+		<%= render campaigns %>
 	  </ol>
 
 	  <%= will_paginate %>

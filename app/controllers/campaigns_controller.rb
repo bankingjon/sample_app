@@ -1,9 +1,7 @@
 class CampaignsController < ApplicationController
-	
+	before_filter :signed_in_user, only: [:index, :show, :destory, :edit, :update]
+  before_filter :admin_user, only: :destroy
 
-	def new
-		@campaign = Campaign.new
-	end
 
 	def index
 		@campaigns = Campaign.paginate(page: params[:page])
@@ -11,6 +9,7 @@ class CampaignsController < ApplicationController
 
 	def show
 		@campaign = Campaign.find(params[:id])
+    @appeals = @campaign.appeals
 	end
 
 	def create
@@ -21,12 +20,18 @@ class CampaignsController < ApplicationController
     	else
       		render 'new'
     	end
-  	end
+  end
 
-  	def destroy
+  def destroy
   		Campaign.find(params[:id]).delete
   		flash[:success] = "Campaign Deleted"
   		redirect_to campaigns_path
-  	end
+  end
+
+  def new
+      @client = Client.find(params[:client_id])
+      @campaign = @client.campaigns.build  # Not the final implementation
+  end
+
 
 end

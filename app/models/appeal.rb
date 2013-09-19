@@ -3,7 +3,7 @@ class Appeal < ActiveRecord::Base
 
   belongs_to :campaign
 
-  has_many :donations, foreign_key: "scanline"
+  has_many :donations
 
   validates :campaign_id, presence: true
   validates :client_file_id, presence: true

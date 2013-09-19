@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717002321) do
+ActiveRecord::Schema.define(:version => 20130719062446) do
 
   create_table "appeals", :force => true do |t|
     t.integer  "client_file_id"
@@ -41,10 +41,20 @@ ActiveRecord::Schema.define(:version => 20130717002321) do
     t.date     "drop_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "client_id"
+    t.boolean  "mp_managed"
   end
 
   add_index "campaigns", ["drop_date"], :name => "index_campaigns_on_drop_date"
   add_index "campaigns", ["name"], :name => "index_campaigns_on_name"
+
+  create_table "clients", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "clients", ["name"], :name => "index_clients_on_name"
 
   create_table "donations", :force => true do |t|
     t.integer  "gift_id"
@@ -56,6 +66,8 @@ ActiveRecord::Schema.define(:version => 20130717002321) do
     t.float    "amount"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "appeal_id"
+    t.integer  "client_id"
   end
 
   add_index "donations", ["amount"], :name => "index_donations_on_amount"

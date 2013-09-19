@@ -4,6 +4,7 @@ namespace :db do
     make_users
     make_microposts
     make_relationships
+    make_clients
     make_campaigns
   end
 end
@@ -42,18 +43,29 @@ def make_relationships
   followers.each      { |follower| follower.follow!(user) }
 end
 
+def make_clients
+  5.times do
+    name = Faker::Company.name
+    Client.create!(name: name)
+    @client = Client.last
+    Campaign.create!(name: "White Mail", client_id: @client.id)
+  end
+end
+
+
 def make_campaigns
   50.times do |n|
+    client = rand(1..5)
     name = Faker::Company.catch_phrase
     date = "1/1/2013"
-    Campaign.create!(name: name, drop_date: date)
+    Campaign.create!(name: name, drop_date: date, client_id: client)
     campaign = Campaign.last
     make_appeals(campaign)  
   end
 end
 
 def make_appeals(campaign)
-  sample = 1000
+  sample = 10
   response_rate = rand(2..100)/100.to_f
   total_gifts = sample * response_rate
   sample.times do
@@ -74,25 +86,28 @@ def make_appeals(campaign)
               scanline: scanline,
               tier: tier,
               tiercode: tiercode )
+    appeal = Appeal.last
     if total_gifts > 0
-      make_donations(donorid, scanline)
+      make_donations(donorid, scanline, appeal.id, campaign.client_id)
       total_gifts = total_gifts - 1
     end
   end
 end
 
 
-def make_donations(donorid, scanline)
+def make_donations(donorid, scanline, appeal_id, client)
   gift_id = rand(10000..99999)
-  channel = 'mail'
+  channel = "mail"
   amount = rand(5..1000)
-  date = '1/1/2013'
+  date = "1/1/2013"
   Donation.create(amount:  amount,
                   channel:  channel, 
                   client_file_id: donorid,
                   gift_date: date,
                   gift_id: gift_id,
-                  scanline: scanline)
+                  scanline: scanline,
+                  client_id: client,
+                  appeal_id: appeal_id)
 end
 
 
