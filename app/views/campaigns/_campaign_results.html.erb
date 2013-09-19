@@ -1,0 +1,36 @@
+<p>Mailed on <%= @campaign.drop_date %></p>
+
+<table class="table table-striped table-bordered" id="donations">
+  			<thead>
+				<tr>
+					<th>Mailed</th>
+					<th>Gifts</th>
+					<th>Revenue</th>
+					<th>Response Rate</th>
+					<th>Avg Gift</th>
+					<th>Mail Cost</th>
+					<th>Postage</th>
+					<th>Net Revenue</th>
+					<th>Cost per $ Revenue</th>
+					<th>Yield per 000s</th>
+					<th>Net Yield per 000s</th>
+				</tr>
+  			</thead>
+  			<tbody>
+	  			<tr>
+					<td><%= @campaign.appeals.count %></td>
+					<td><%= @campaign.donations.count %></td>
+					<td><%= revenue @campaign.donations %></td>
+					<td><%= response(@campaign.appeals, @campaign.donations) %></td>
+					<td><%= avg_gift @campaign.donations %></td>
+					<td><%= mailing_cost @campaign.appeals %></td>
+					<td><%= postage_cost @campaign.appeals %></td>
+					<td><%= net_revenue(@campaign.appeals, @campaign.donations) %></td>
+					<td><%= revenue_cost(@campaign.appeals, @campaign.donations) %></td>
+					<td><%= gross_yield(@campaign.appeals, @campaign.donations) %></td>
+					<td><%= net_yield(@campaign.appeals, @campaign.donations) %></td>
+	  			</tr>
+
+  			</tbody>
+			</table>
+

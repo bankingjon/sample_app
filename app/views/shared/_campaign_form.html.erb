@@ -1,0 +1,10 @@
+<% @client = Client.find(params[:id]) %>
+
+<%= form_for :campaign, :url => {:action => :create} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :name, placeholder: "Campaign Name..." %>
+    <%= f.text_area :drop_date, placeholder: "Mail Date mm/dd/yyyy" %>
+  </div>
+  <%= f.submit "Create New Campaign", class: "btn btn-large btn-primary" %>
+<% end %>

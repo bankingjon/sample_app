@@ -1,0 +1,24 @@
+<% provide(:title, 'All Donations') %>
+<h2>All Gifts for <%= @client.name %></H2>
+
+<p><%= link_to "Download CSV", client_donations_path(@client.id, format: "csv") %></p>
+
+<table class="table table-striped table-bordered" id="appeals">
+  <thead>
+	<tr>
+		<th>Client Donor ID</th>
+		<th>Gift Date</th>
+		<th>Channel</th>
+	</tr>
+  </thead>
+  <tbody>
+
+	<% @donations.each do |donation| %>
+	  <tr>
+		<td><%= donation.client_file_id %></td>
+		<td><%= donation.gift_date %></td>
+		<td><%= donation.channel %></td>
+	  </tr>
+	 <% end %>
+  </tbody>
+</table>

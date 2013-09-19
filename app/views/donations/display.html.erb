@@ -1,0 +1,47 @@
+<% provide(:title, 'All Donations') %>
+<h2>All Gifts from <%= @client.name %>'s <%= @campaign.name %></H2>
+
+<table class="table table-striped table-bordered" id="donations">
+  <thead>
+	<tr>
+		<th>Donors</th>
+		<th>Gifts</th>
+		<th>Revenue</th>
+		<th>Avg Gift</th>
+	</tr>
+  </thead>
+  <tbody>
+	  <tr>
+		<td><%= @campaign.donations.count %></td>
+		<td><%= @campaign.donations.count %></td>
+		<td><%= revenue @donations %></td>
+		<td><%= avg_gift @donations %></td>
+	  </tr>
+  </tbody>
+</table>
+
+
+
+<p><%= link_to "Download CSV", display_campaign_donations_path(@campaign.id, format: "csv") %></p>
+
+<table class="table table-striped table-bordered" id="appeals">
+  <thead>
+	<tr>
+		<th>Client Donor ID</th>
+		<th>Gift Date</th>
+		<th>Channel</th>
+		<th>Amount</th>
+	</tr>
+  </thead>
+  <tbody>
+
+	<% @donations.each do |donation| %>
+	  <tr>
+		<td><%= donation.client_file_id %></td>
+		<td><%= donation.gift_date %></td>
+		<td><%= donation.channel %></td>
+		<td><%= donation.amount %></td>
+	  </tr>
+	 <% end %>
+  </tbody>
+</table>

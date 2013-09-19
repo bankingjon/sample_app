@@ -1,0 +1,27 @@
+def campaign_table(client)
+
+<table class="table table-striped table-bordered" id="donations">
+  			<thead>
+				<tr>
+					<th>Campaign Name</th>
+					<th>Mailed</th>
+					<th>Gifts</th>
+					<th>Revenue</th>
+					<th>Response Rate</th>
+					<th>Avg Gift</th>
+				</tr>
+  			</thead>
+  			<tbody>
+  			
+  			<%= client.campaigns.each do |campaign| %>
+
+	  			<tr>
+					<td><%= campaign.appeals.count %></td>
+					<td><%= campaign.donations.count %></td>
+					<td><%= revenue campaign.donations %></td>
+					<td><%= response(campaign.appeals, campaign.donations) %></td>
+					<td><%= avg_gift campaign.donations %></td>
+	  			</tr>
+  			</tbody>
+			</table>
+ 	</div>
